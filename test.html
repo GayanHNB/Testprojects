@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Payment Form</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Card.js for card formatting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/card/2.5.3/jquery.card.min.js"></script>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h3 class="text-center">Secure Payment</h3>
+        <form id="payment-form">
+            <div class="mb-3">
+                <label class="form-label">Card Number</label>
+                <input type="text" id="card-number" class="form-control" placeholder="4111 1111 1111 1111" required>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col">
+                    <label class="form-label">Expiry Month</label>
+                    <input type="text" id="exp-month" class="form-control" placeholder="MM" required>
+                </div>
+                <div class="col">
+                    <label class="form-label">Expiry Year</label>
+                    <input type="text" id="exp-year" class="form-control" placeholder="YYYY" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">CVV</label>
+                <input type="text" id="cvv" class="form-control" placeholder="123" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Pay Now</button>
+        </form>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function () {
+    // Initialize Card.js for formatting
+    $('#card-number').on('input', function () {
+        let formattedCardNumber = $(this).val().replace(/\D/g, '').replace(/(\d{4})/g, '$1 ').trim();
+        $(this).val(formattedCardNumber);
+    });
+
+    $('#payment-form').submit(async function (event) {
+        event.preventDefault();
+
+        const cardNumber = $('#card-number').val().replace(/\s+/g, ''); // Remove spaces
+        const expMonth = $('#exp-month').val();
+        const expYear = $('#exp-year').val();
+        const cvv = $('#cvv').val();
+
+        const paymentData = {
+            clientReferenceInformation: { code: 'TestOrder123' },
+            paymentInformation: {
+                card: {
+                    number: cardNumber,
+                    expirationMonth: expMonth,
+                    expirationYear: expYear,
+                    securityCode: cvv
+                }
+            },
+            orderInformation: {
+                amountDetails: { totalAmount: '10.00', currency: 'USD' },
+                billTo: { firstName: 'John', lastName: 'Doe', email: 'test@example.com' }
+            }
+        };
+
+        try {
+            const response = await fetch('https://apitest.cybersource.com/pts/v2/payments', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer YOUR_API_KEY' // Replace with actual API Key
+                },
+                body: JSON.stringify(paymentData)
+            });
+
+            const result = await response.json();
+            console.log('Payment Response:', result);
+
+            if (result.status === "AUTHORIZED" || result.status === "PENDING") {
+                alert("Payment Successful!");
+                window.location.href = "https://yourwebsite.com/payment-success";
+            } else {
+                alert("Payment failed: " + (result.message || "Unknown error"));
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert("Payment error: " + error.message);
+        }
+    });
+});
+</script>
+
+</body>
+</html>
