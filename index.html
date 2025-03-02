@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Inquiry Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            font-size: 22px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        .form-group input[type="submit"] {
+            background-color: #333;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #555;
+        }
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .links a {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 15px;
+            color: #333;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .links a:hover {
+            background-color: #333;
+            color: #fff;
+        }
+        @media (max-width: 480px) {
+            .container {
+                margin: 20px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Hi...!!! Please submit your inquiry. Thank you for contacting us!</h1>
+    
+    <form action="https://formsubmit.co/gunasekaranavodya@gmail.com" method="POST">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="contact">Contact Number</label>
+            <input type="tel" id="contact" name="contact" required>
+        </div>
+        <div class="form-group">
+            <label for="service">Required Service</label>
+            <select id="service" name="service" required>
+                <option value="">-- Select a Service --</option>
+                <option value="Interior Design Consultation">Interior Design Consultation</option>
+                <option value="Project Management">Project Management</option>
+                <option value="Custom Design Requests">Custom Design Requests</option>
+                <option value="3D Rendering Services">3D Rendering Services</option>
+                <option value="Space Planning">Space Planning</option>
+                <option value="Furniture & Decor Selection">Furniture & Decor Selection</option>
+                <option value="Full Home Renovation">Full Home Renovation</option>
+                <option value="Office Interior Solutions">Office Interior Solutions</option>
+                <option value="Retail Store Designs">Retail Store Designs</option>
+                <option value="Hospitality & Hotel Interiors">Hospitality & Hotel Interiors</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="message">Additional Details</label>
+            <textarea id="message" name="message" placeholder="Tell us more about your requirements..."></textarea>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+
+    <div class="links">
+        <p>Explore our projects:</p>
+        <a href="https://www.behance.net/ushanabey" target="_blank">Ushana Bey's Behance</a>
+        <a href="https://www.instagram.com/vivatra_holdings" target="_blank">Vivatra Holdings on Instagram</a>
+    </div>
+</div>
+
+</body>
+</html>
